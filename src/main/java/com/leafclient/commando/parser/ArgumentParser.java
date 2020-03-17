@@ -1,7 +1,6 @@
 package com.leafclient.commando.parser;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents a {@link ArgumentParser} which parses a String (argument of a command) into an object instance.

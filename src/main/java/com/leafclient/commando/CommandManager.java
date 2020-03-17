@@ -4,6 +4,7 @@ import com.leafclient.commando.argument.CommandArgument;
 import com.leafclient.commando.context.CommandContext;
 import com.leafclient.commando.exception.CommandException;
 import com.leafclient.commando.exception.CommandNotFoundException;
+import com.leafclient.commando.exception.ParserMissingException;
 import com.leafclient.commando.executor.CommandExecutor;
 import com.leafclient.commando.parser.ArgumentParser;
 import com.leafclient.commando.parser.ArgumentParsers;
@@ -14,12 +15,12 @@ import java.util.*;
 /**
  * Contains and manage the commands for Commando.
  *
- * @param <CE> The command sender type
+ * @param <E> The command sender type
  */
-public class CommandManager<CE> {
+public class CommandManager<E> {
 
     private char PREFIX, SEPARATOR;
-    private final List<Command<CE>> commands = new ArrayList<>();
+    private final List<Command<E>> commands = new ArrayList<>();
 
     public CommandManager(char prefix, char separator) {
         this.PREFIX = prefix;
@@ -32,12 +33,12 @@ public class CommandManager<CE> {
      *
      * @param text Text
      */
-    public boolean runIfCommand(CE sender, String text) throws CommandException {
+    public boolean runIfCommand(E sender, String text) throws CommandException {
         if(!text.startsWith(String.valueOf(PREFIX)) || text.length() == 1)
             return false;
 
         String[] parts = text.substring(1).split(String.valueOf(SEPARATOR));
-        for(Command<CE> command: commands) {
+        for(Command<E> command: commands) {
             if(!CommandUtils.anyEqualsIgnoreCase(parts[0], command.getNames()))
                 continue; // Not the command we expect
 
@@ -54,7 +55,7 @@ public class CommandManager<CE> {
     /**
      * @return The list of all registered commands.
      */
-    public List<Command<CE>> getCommands() {
+    public List<Command<E>> getCommands() {
         return commands;
     }
 
@@ -64,58 +65,58 @@ public class CommandManager<CE> {
      * @param names Command names
      * @return Builder
      */
-    public Builder<CE> newCommand(String... names) {
+    public Builder<E> newCommand(String... names) {
         return new Builder<>(this, names);
     }
 
     /**
      * The command builder used to build a {@link Command} instance attached to this {@link CommandManager}.
      *
-     * @param <CE> Command sender type
+     * @param <E> Command sender type
      */
-    public static class Builder<CE> {
-        private final CommandManager<CE> commandManager;
+    public static class Builder<E> {
+        private final CommandManager<E> commandManager;
 
         private final String[] names;
         private String description = "";
         private final List<CommandArgument<?>> arguments = new ArrayList<>();
 
-        private CommandExecutor<CE> executor;
+        private CommandExecutor<E> executor;
 
-        public Builder(CommandManager<CE> commandManager, String... names) {
+        public Builder(CommandManager<E> commandManager, String... names) {
             this.commandManager = commandManager;
             this.names = names;
         }
 
-        public Builder<CE> description(String description) {
+        public Builder<E> description(String description) {
             this.description = description;
             return this;
         }
 
-        public Builder<CE> executor(CommandExecutor<CE> executor) {
+        public Builder<E> executor(CommandExecutor<E> executor) {
             this.executor = executor;
             return this;
         }
 
-        public <T> Builder<CE> argument(String name, Class<T> type) {
+        public <T> Builder<E> argument(String name, Class<T> type) {
             final ArgumentParser<T> parser = ArgumentParsers.parserFor(type);
             if(parser == null)
-                throw new RuntimeException("No parser found for type " + type.getSimpleName());
+                throw new ParserMissingException(type);
 
             arguments.add(CommandArgument.of(name, type));
             return this;
         }
 
-        public <T> Builder<CE> optionalArgument(String name, Class<T> type) {
+        public <T> Builder<E> optionalArgument(String name, Class<T> type) {
             final ArgumentParser<T> parser = ArgumentParsers.parserFor(type);
             if(parser == null)
-                throw new RuntimeException("No parser found for type " + type.getSimpleName());
+                throw new ParserMissingException(type);
 
             arguments.add(CommandArgument.of(name, type, true));
             return this;
         }
 
-        public CommandManager<CE> done() {
+        public CommandManager<E> done() {
             commandManager
                     .commands
                     .add(

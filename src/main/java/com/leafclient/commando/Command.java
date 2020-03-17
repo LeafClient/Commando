@@ -7,16 +7,16 @@ import com.leafclient.commando.executor.CommandExecutor;
  * Represent a {@link Command} to the {@link CommandManager} instance and contains
  * all the information required about a command.
  *
- * @param <CE> Command sender type
+ * @param <E> Command sender type
  */
-public final class Command<CE> {
+public final class Command<E> {
 
     private final String[] names;
     private final String description;
     private final CommandArgument<?>[] arguments;
-    private final CommandExecutor<CE> executor;
+    private final CommandExecutor<E> executor;
 
-    public Command(String[] names, String description, CommandArgument<?>[] arguments, CommandExecutor<CE> executor) {
+    public Command(String[] names, String description, CommandArgument<?>[] arguments, CommandExecutor<E> executor) {
         this.names = names;
         this.description = description;
         this.arguments = arguments;
@@ -48,7 +48,7 @@ public final class Command<CE> {
      * @return The {@link CommandExecutor} of this {@link Command}
      * @see CommandExecutor
      */
-    public CommandExecutor<CE> getExecutor() {
+    public CommandExecutor<E> getExecutor() {
         return executor;
     }
 }

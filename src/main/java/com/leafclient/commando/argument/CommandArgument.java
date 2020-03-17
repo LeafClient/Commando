@@ -5,37 +5,14 @@ import com.leafclient.commando.parser.ArgumentParsers;
 
 public final class CommandArgument<T> {
 
-    /**
-     * Creates a {@link CommandArgument} instance.
-     *
-     * @param name Argument's name
-     * @param type Argument's type class
-     * @param <T> Argument's type
-     */
-    public static <T> CommandArgument<T> of(String name, Class<T> type) {
-        return new CommandArgument<>(name, type, false);
-    }
-
-    /**
-     * Creates a {@link CommandArgument} instance.
-     *
-     * @param name Argument's name
-     * @param type Argument's type class
-     * @param optional Optional
-     * @param <T> Argument's type
-     */
-    public static <T> CommandArgument<T> of(String name, Class<T> type, boolean optional) {
-        return new CommandArgument<>(name, type, optional);
-    }
-
     private final String name;
     private final Class<T> type;
-    private final boolean optional;
+    private final boolean isOptional;
 
-    CommandArgument(String name, Class<T> type, boolean optional) {
+    CommandArgument(String name, Class<T> type, boolean isOptional) {
         this.name = name;
         this.type = type;
-        this.optional = optional;
+        this.isOptional = isOptional;
     }
 
     /**
@@ -57,7 +34,7 @@ public final class CommandArgument<T> {
      * for the provided argument, we go to the next one).
      */
     public boolean isOptional() {
-        return optional;
+        return isOptional;
     }
 
     /**
@@ -66,6 +43,29 @@ public final class CommandArgument<T> {
      */
     public ArgumentParser<T> parser() {
         return ArgumentParsers.parserFor(getType());
+    }
+
+    /**
+     * Creates a {@link CommandArgument} instance.
+     *
+     * @param name Argument's name
+     * @param type Argument's type class
+     * @param <T> Argument's type
+     */
+    public static <T> CommandArgument<T> of(String name, Class<T> type) {
+        return new CommandArgument<>(name, type, false);
+    }
+
+    /**
+     * Creates a {@link CommandArgument} instance.
+     *
+     * @param name Argument's name
+     * @param type Argument's type class
+     * @param optional Optional
+     * @param <T> Argument's type
+     */
+    public static <T> CommandArgument<T> of(String name, Class<T> type, boolean optional) {
+        return new CommandArgument<>(name, type, optional);
     }
 
 }

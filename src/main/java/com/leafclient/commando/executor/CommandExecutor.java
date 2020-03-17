@@ -6,10 +6,10 @@ import com.leafclient.commando.context.CommandContext;
  * Interface used to mark a {@link CommandExecutor} that contains a {@link this#execute(Object, CommandContext)} method
  * executed when the command is ran.
  *
- * @param <CE> Command sender type
+ * @param <E> Command sender type
  */
-public interface CommandExecutor<CE> {
+public interface CommandExecutor<E> {
 
-    void execute(CE sender, CommandContext context);
+    void execute(E sender, CommandContext context);
 
 }

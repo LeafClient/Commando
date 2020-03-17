@@ -1,3 +1,5 @@
+package com.leafclient.commando;
+
 import com.leafclient.commando.CommandManager;
 import com.leafclient.commando.exception.CommandException;
 
@@ -26,7 +28,7 @@ public class Test {
         }
     }
 
-    public static enum Yes {
+    public enum Yes {
         YES,
         NO
     }

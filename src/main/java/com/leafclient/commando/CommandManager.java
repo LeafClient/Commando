@@ -19,7 +19,8 @@ import java.util.*;
  */
 public class CommandManager<E> {
 
-    private char PREFIX, SEPARATOR;
+    private char PREFIX;
+    private char SEPARATOR;
     private final List<Command<E>> commands = new ArrayList<>();
 
     public CommandManager(char prefix, char separator) {

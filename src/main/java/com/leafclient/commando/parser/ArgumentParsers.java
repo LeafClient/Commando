@@ -6,6 +6,7 @@ import com.leafclient.commando.parser.generic.StringParser;
 import com.leafclient.commando.parser.generic.number.DoubleParser;
 import com.leafclient.commando.parser.generic.number.FloatParser;
 import com.leafclient.commando.parser.generic.number.IntParser;
+import com.leafclient.commando.parser.generic.number.LongParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +50,7 @@ public final class ArgumentParsers {
         register(Double.class, new DoubleParser());
         register(Float.class, new FloatParser());
         register(Integer.class, new IntParser());
+        register(Long.class, new LongParser());
         register(Enum.class, new EnumParser());
     }
 

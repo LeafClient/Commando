@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    compile("com.github.LeafClient", "Struct", "1.03")
     testCompile("junit", "junit", "4.12")
 }
 

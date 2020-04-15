@@ -12,7 +12,9 @@ public final class IntParser implements ArgumentParser<Integer> {
                 .toLowerCase();
 
         try {
-            return Integer.valueOf(numberText);
+            final int returnValue = Integer.parseInt(numberText);
+            textArguments.remove(0);
+            return returnValue;
         } catch (NumberFormatException e) {
             return null;
         }

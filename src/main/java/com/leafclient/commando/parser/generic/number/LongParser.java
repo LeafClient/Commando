@@ -12,7 +12,9 @@ public final class LongParser implements ArgumentParser<Long> {
                 .toLowerCase();
 
         try {
-            return Long.valueOf(numberText);
+            final long returnValue = Long.parseLong(numberText);
+            textArguments.remove(0);
+            return returnValue;
         } catch (NumberFormatException e) {
             return null;
         }

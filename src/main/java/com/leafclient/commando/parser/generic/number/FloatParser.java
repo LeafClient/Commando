@@ -13,7 +13,9 @@ public final class FloatParser implements ArgumentParser<Float> {
                 .replaceAll(",", ".");
 
         try {
-            return Float.valueOf(numberText);
+            final float returnValue = Float.parseFloat(numberText);
+            textArguments.remove(0);
+            return returnValue;
         } catch (NumberFormatException e) {
             return null;
         }

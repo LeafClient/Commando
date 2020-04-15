@@ -13,7 +13,9 @@ public final class DoubleParser implements ArgumentParser<Double> {
                 .replaceAll(",", ".");
 
         try {
-            return Double.valueOf(numberText);
+            final double returnValue = Double.parseDouble(numberText);
+            textArguments.remove(0);
+            return returnValue;
         } catch (NumberFormatException e) {
             return null;
         }

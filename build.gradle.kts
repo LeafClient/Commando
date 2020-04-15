@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.leafclient"
-version = "1.0.1"
+version = "1.0.2"
 description = "A command library designed for Minecraft clients"
 
 repositories {
